@@ -42,11 +42,11 @@ final class Mailer
 
             $this->mailer->send($email, $envelope);
         } catch (ExceptionInterface $exception) {
-            $this->logger->error(Str\format('Error while attempting to send an email: %s', $e->getMessage()), [
-                'exception' => $e,
+            $this->logger->error(Str\format('Error while attempting to send an email: %s', $exception->getMessage()), [
+                'exception' => $exception,
             ]);
 
-            throw $e;
+            throw $exception;
         }
     }
 }
