@@ -35,7 +35,7 @@ final class PasswordReset
 
     public const RESET_PASSWORD_CHECK_EMAIL_ID = 'ResetPasswordCheckEmail';
 
-    public const RESET_PASSWORD_ERROR = "reset_password_error";
+    public const RESET_PASSWORD_ERROR = 'reset_password_error';
 
     public ResetPasswordHelperInterface $helper;
 
