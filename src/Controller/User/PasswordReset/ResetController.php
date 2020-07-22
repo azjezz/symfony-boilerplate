@@ -31,6 +31,9 @@ use Twig\Environment;
  */
 final class ResetController
 {
+
+    public const RESET_PASSWORD_ERROR = "reset_password_error";
+
     private PasswordReset $passwordReset;
 
     private FormFactoryInterface $factory;
@@ -53,7 +56,7 @@ final class ResetController
     /**
      * Validates and process the reset URL that the user clicked in their email.
      *
-     * @Route("/reset/{token}", methods={"GET"}, name="user_password_reset")
+     * @Route("/reset/{token}", methods={"POST", "GET"}, name="user_password_reset")
      */
     public function reset(Request $request, ?string $token = null): Response
     {
@@ -68,7 +71,7 @@ final class ResetController
         } catch (ResetPasswordExceptionInterface $e) {
             /** @var FlashBagInterface $flashes */
             $flashes = $request->getSession()->getBag('flashes');
-            $flashes->add('reset_password_error', $e->getReason());
+            $flashes->add(self::RESET_PASSWORD_ERROR, $e->getReason());
 
             $url = $this->urlGenerator->generate('user_password_reset_request');
 
