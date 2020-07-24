@@ -11,20 +11,23 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\User;
+namespace App\Controller\Api;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/user")
+ * @Route("/api")
  */
-final class LogoutController
+final class PingController
 {
     /**
-     * @Route("/logout", methods={"GET", "POST"}, name="user_logout")
+     * @Route("/ping", name="api_ping", methods={"GET"})
      */
-    public function logout(): void
+    public function ping(): JsonResponse
     {
-        // This method can be blank - it will be intercepted by the logout key on your firewall.
+        return new JsonResponse([
+            'ping' => 'pong!',
+        ]);
     }
 }

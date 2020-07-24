@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
-use App\Entity\User;
+use <App\Entity\User;
 use App\Fixtures\UserFixture;
 use App\Security\Authenticator;
 use App\Security\Security;
