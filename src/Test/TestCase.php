@@ -21,13 +21,9 @@ abstract class TestCase extends WebTestCase
 {
     use FixturesTrait;
 
-    protected array
+    protected array $fixtures = [];
 
- $fixtures = [];
-
-    protected array
-
- $options = [];
+    protected array $options = [];
 
     protected KernelBrowser $browser;
 
@@ -35,5 +31,31 @@ abstract class TestCase extends WebTestCase
     {
         $this->browser = static::createClient($this->options);
         $this->loadFixtures($this->fixtures, false);
+    }
+
+    /**
+     * Create a client with a default Authorization header.
+     */
+    protected function createAuthenticatedClient(string $username = 'user', string $password = 'password'): KernelBrowser
+    {
+        $client = static::createClient();
+        $client->request(
+            'POST',
+            '/api/login_check',
+            array(),
+            array(),
+            array('CONTENT_TYPE' => 'application/json'),
+            json_encode(array(
+                '_username' => $username,
+                '_password' => $password,
+            ))
+        );
+
+        $data = json_decode($client->getResponse()->getContent(), true);
+
+        $browser = $this->browser;
+        $browser->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
+
+        return $browser;
     }
 }
