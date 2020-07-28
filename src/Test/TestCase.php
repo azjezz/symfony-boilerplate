@@ -13,6 +13,8 @@ declare(strict_types=1);
 
 namespace App\Test;
 
+use Psl;
+use Psl\Str;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -36,26 +38,27 @@ abstract class TestCase extends WebTestCase
     /**
      * Create a client with a default Authorization header.
      */
-    protected function createAuthenticatedClient(string $username = 'user', string $password = 'password'): KernelBrowser
+    protected function createAuthenticatedClient(string $username = 'jojo', string $password = '123456789'): KernelBrowser
     {
-        $client = static::createClient();
-        $client->request(
+        $this->browser->request(
             'POST',
             '/api/login_check',
-            array(),
-            array(),
-            array('CONTENT_TYPE' => 'application/json'),
-            json_encode(array(
-                '_username' => $username,
-                '_password' => $password,
-            ))
+            [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            json_encode(['username' => $username, 'password' => $password])
         );
 
-        $data = json_decode($client->getResponse()->getContent(), true);
+        $response = $this->browser->getResponse();
+        if (!$response->isSuccessful()) {
+            Psl\invariant(false, 'Invalid credentials.');
+        }
 
-        $browser = $this->browser;
-        $browser->setServerParameter('HTTP_Authorization', sprintf('Bearer %s', $data['token']));
 
-        return $browser;
+        $data = json_decode($response->getContent(), true);
+
+        $this->browser->setServerParameter('HTTP_Authorization', Str\format('Bearer %s', $data['token']));
+
+        return $this->browser;
     }
 }

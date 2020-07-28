@@ -3,7 +3,7 @@
 /*
  * This file is part of Symfony Boilerplate.
  *
- * (c) Saif Eddin Gmati
+ * (c) omar kebir
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Security;
 
-use <App\Entity\User;
+use App\Entity\User;
 use App\Fixtures\UserFixture;
 use App\Security\Authenticator;
 use App\Security\Security;
@@ -28,9 +28,7 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 final class AuthenticatorTest extends TestCase
 {
-    public array
-
- $fixtures = [
+    public array $fixtures = [
         UserFixture::class,
     ];
 
