@@ -3,7 +3,7 @@
 /*
  * This file is part of Symfony Boilerplate.
  *
- * (c) omar kebir
+ * (c) Saif Eddin Gmati
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,9 +13,9 @@ declare(strict_types=1);
 
 namespace App\Test;
 
+use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Psl;
 use Psl\Str;
-use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -50,10 +50,10 @@ abstract class TestCase extends WebTestCase
         );
 
         $response = $this->browser->getResponse();
+
         if (!$response->isSuccessful()) {
             Psl\invariant(false, 'Invalid credentials.');
         }
-
 
         $data = json_decode($response->getContent(), true);
 
