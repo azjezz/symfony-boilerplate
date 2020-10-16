@@ -142,7 +142,7 @@
         "version": "1.0.1"
     },
     "lcobucci/jwt": {
-        "version": "3.3.2"
+        "version": "3.3.3"
     },
     "lexik/jwt-authentication-bundle": {
         "version": "2.5",
@@ -432,7 +432,7 @@
         "version": "v1.14.0"
     },
     "symfony/polyfill-php56": {
-        "version": "v1.18.0"
+        "version": "v1.18.1"
     },
     "symfony/polyfill-php70": {
         "version": "v1.15.0"
@@ -441,7 +441,7 @@
         "version": "v1.15.0"
     },
     "symfony/polyfill-util": {
-        "version": "v1.18.0"
+        "version": "v1.18.1"
     },
     "symfony/process": {
         "version": "v5.0.5"
