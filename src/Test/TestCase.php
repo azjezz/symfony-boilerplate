@@ -16,6 +16,8 @@ namespace App\Test;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Psl;
 use Psl\Str;
+use Psl\Json;
+use Psl\Type;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -40,22 +42,16 @@ abstract class TestCase extends WebTestCase
      */
     protected function createAuthenticatedClient(string $username = 'jojo', string $password = '123456789'): KernelBrowser
     {
-        $this->browser->request(
-            'POST',
-            '/api/login_check',
-            [],
-            [],
-            ['CONTENT_TYPE' => 'application/json'],
-            json_encode(['username' => $username, 'password' => $password])
-        );
+        $this->browser->request('POST', '/api/login_check', [], [], ['CONTENT_TYPE' => 'application/json'], Json\encode([
+            'username' => $username,
+            'password' => $password,
+        ]));
 
         $response = $this->browser->getResponse();
 
-        if (!$response->isSuccessful()) {
-            Psl\invariant(false, 'Invalid credentials.');
-        }
+        Psl\invariant($response->isSuccessful(), 'Invalid credentials.');
 
-        $data = json_decode($response->getContent(), true);
+        $data = Json\typed($response->getContent(), Type\arr(Type\string(), Type\string()));
 
         $this->browser->setServerParameter('HTTP_Authorization', Str\format('Bearer %s', $data['token']));
 

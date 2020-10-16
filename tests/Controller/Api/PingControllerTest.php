@@ -13,10 +13,12 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Api;
 
+use Psl\Type;
+use Psl\Json;
 use App\Fixtures\UserFixture;
 use App\Test\TestCase;
 
-class PingControllerTest extends TestCase
+final class PingControllerTest extends TestCase
 {
     protected array $fixtures = [
         UserFixture::class,
@@ -30,7 +32,7 @@ class PingControllerTest extends TestCase
         $response = $browser->getResponse();
         $content = $response->getContent();
 
-        $data = json_decode($content, true);
+        $data = Json\typed($content, Type\arr(Type\string(), Type\string()));
         self::assertSame('pong!', $data['ping']);
     }
 
