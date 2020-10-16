@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace App\Tests\Controller\Api;
 
-use Psl\Type;
-use Psl\Json;
 use App\Fixtures\UserFixture;
 use App\Test\TestCase;
+use Psl\Json;
+use Psl\Type;
 
 final class PingControllerTest extends TestCase
 {

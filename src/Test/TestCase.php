@@ -15,8 +15,8 @@ namespace App\Test;
 
 use Liip\TestFixturesBundle\Test\FixturesTrait;
 use Psl;
-use Psl\Str;
 use Psl\Json;
+use Psl\Str;
 use Psl\Type;
 use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
